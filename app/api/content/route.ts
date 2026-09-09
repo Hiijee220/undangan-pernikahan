@@ -1,0 +1,3 @@
+import {getChatGPTUser} from "../../chatgpt-auth";import{env}from"cloudflare:workers";import{defaults}from"../../page";
+export async function GET(){try{const r=await env.DB.prepare("SELECT content FROM invitation_content WHERE id=1").first<{content:string}>();return Response.json(r?.content?JSON.parse(r.content):defaults)}catch{return Response.json(defaults)}}
+export async function POST(req:Request){if(!await getChatGPTUser())return Response.json({error:"Login diperlukan"},{status:401});const body=await req.json();await env.DB.prepare("INSERT INTO invitation_content (id,content,updated_at) VALUES (1,?,?) ON CONFLICT(id) DO UPDATE SET content=excluded.content, updated_at=excluded.updated_at").bind(JSON.stringify(body),Date.now()).run();return Response.json({ok:true})}

@@ -1,0 +1,2 @@
+import{env}from"cloudflare:workers";
+export async function GET(_req:Request,{params}:{params:Promise<{key:string[]}>}){const{key}=await params;const obj=await env.BUCKET.get(key.join("/"));if(!obj)return new Response("Tidak ditemukan",{status:404});const h=new Headers();obj.writeHttpMetadata(h);h.set("etag",obj.httpEtag);h.set("cache-control","public, max-age=31536000, immutable");return new Response(obj.body,{headers:h})}
