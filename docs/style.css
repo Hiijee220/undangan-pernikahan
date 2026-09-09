@@ -1,0 +1,3 @@
+@import url("../app/globals.css");
+@import url("../app/extra.css");
+body{margin:0}.hero{background-size:cover;background-position:center}.hero-copy{max-width:1000px}.intro>span{font-size:28px;color:#dec38f}.login-card{max-width:520px;margin:60px auto}.admin-card label{display:flex;flex-direction:column;gap:8px;margin:15px 0}.admin-card label>span,.admin-card>label{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}.admin-card input,.admin-card textarea{padding:12px;border:1px solid #cbd4cf;font:inherit}.admin-card textarea{min-height:110px}.secondary{background:#6b7771;margin-left:8px}#status{margin-left:14px}.thumbs button{border:0;background:#eee;padding:7px 10px;cursor:pointer}
