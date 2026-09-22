@@ -1,0 +1,7 @@
+html[data-theme="rose"]{--ink:#632f3e;--cream:#fff5f7;--gold:#c78c9f;--paper:#fffafb}
+html[data-theme="navy"]{--ink:#17263d;--cream:#f2f6fb;--gold:#c5a763;--paper:#fbfcff}
+html[data-theme="sage"]{--ink:#34483f;--cream:#f2f5ef;--gold:#b69662;--paper:#fbfcf9}
+html[data-theme="sky"]{--ink:#21678f;--cream:#eaf7ff;--gold:#d1a75f;--paper:#f8fcff}
+.theme-swatches .sky{background:#62b8e8}
+.single-preview{display:block;width:min(100%,420px);height:220px;object-fit:cover;margin-top:12px;border:1px solid #cad6d2;border-radius:3px;background:#eef3f2}
+.single-preview[hidden]{display:none}
