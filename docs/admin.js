@@ -21,15 +21,21 @@ async function render(){
   document.querySelectorAll("[data-del]").forEach(btn=>btn.onclick=async()=>{const i=+btn.dataset.del,id=ids[i];if(id)await deleteDoc(doc(db,"invitation",id));data.galleryIds.splice(i,1);await setDoc(doc(db,"invitation","content"),data,{merge:true});await render()});
 }
 
-async function compress(file){
-  const bitmap=await createImageBitmap(file),max=1400,scale=Math.min(1,max/Math.max(bitmap.width,bitmap.height));
-  const canvas=document.createElement("canvas");canvas.width=Math.round(bitmap.width*scale);canvas.height=Math.round(bitmap.height*scale);canvas.getContext("2d").drawImage(bitmap,0,0,canvas.width,canvas.height);bitmap.close();
-  let quality=.78,blob;do{blob=await new Promise(r=>canvas.toBlob(r,"image/webp",quality));quality-=.1}while(blob.size>650000&&quality>.38);
-  if(!blob||blob.size>750000)throw new Error("Foto masih terlalu besar. Gunakan foto di bawah 8 MB.");
-  return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob)});
+const MAX_INPUT_SIZE=10*1024*1024;
+function loadPhoto(uploadFile){return new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=()=>reject(new Error("Foto tidak dapat dibaca."));reader.onload=()=>{const image=new Image();image.onload=()=>resolve(image);image.onerror=()=>reject(new Error("Format foto tidak didukung. Gunakan JPG, PNG, atau WebP."));image.src=reader.result};reader.readAsDataURL(uploadFile)})}
+function canvasBlob(canvas,quality){return new Promise((resolve,reject)=>canvas.toBlob(blob=>blob?resolve(blob):reject(new Error("Foto gagal dikompres.")),"image/jpeg",quality))}
+async function compress(uploadFile){
+  if(!uploadFile)throw new Error("Tidak ada foto yang dipilih.");
+  if(uploadFile.size>MAX_INPUT_SIZE)throw new Error(`Ukuran ${uploadFile.name} melebihi batas 10 MB.`);
+  const image=await loadPhoto(uploadFile),max=1600,scale=Math.min(1,max/Math.max(image.naturalWidth,image.naturalHeight));
+  const canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(image.naturalWidth*scale));canvas.height=Math.max(1,Math.round(image.naturalHeight*scale));const context=canvas.getContext("2d");context.fillStyle="#fff";context.fillRect(0,0,canvas.width,canvas.height);context.drawImage(image,0,0,canvas.width,canvas.height);
+  let quality=.82,blob=await canvasBlob(canvas,quality);while(blob.size>620000&&quality>.32){quality-=.1;blob=await canvasBlob(canvas,quality)}
+  if(blob.size>700000)throw new Error("Foto tidak dapat diperkecil. Coba gunakan foto lain.");
+  return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error("Hasil foto tidak dapat diproses."));reader.readAsDataURL(blob)});
 }
-async function saveImage(id,file){const dataUrl=await compress(file);await setDoc(doc(db,"invitation",id),{dataUrl,updatedAt:new Date().toISOString()});return id}
-async function upload(input,kind){const files=[...input.files];if(!files.length)return;try{status("Mengompres dan mengunggah foto...");if(kind==="gallery"){for(const file of files.slice(0,6-(data.galleryIds?.length||0))){const id=`gallery-${crypto.randomUUID()}`;await saveImage(id,file);data.galleryIds=[...(data.galleryIds||[]),id]}}else{await saveImage(kind,file);data[kind+"Id"]=kind}await setDoc(doc(db,"invitation","content"),data,{merge:true});await render();status("Foto berhasil diunggah dan langsung aktif.")}catch(e){status(e.message,true)}finally{input.value=""}}
+function uniqueId(){return window.crypto?.randomUUID?.()||`${Date.now()}-${Math.random().toString(36).slice(2)}`}
+async function saveImage(id,uploadFile){const dataUrl=await compress(uploadFile);await setDoc(doc(db,"invitation",id),{dataUrl,updatedAt:new Date().toISOString()});return id}
+async function upload(input,kind){const selectedFiles=Array.from(input.files||[]);if(!selectedFiles.length)return;try{const allowed=kind==="gallery"?selectedFiles.slice(0,Math.max(0,6-(data.galleryIds?.length||0))):selectedFiles.slice(0,1);if(!allowed.length)throw new Error("Galeri sudah berisi maksimal 6 foto.");for(let i=0;i<allowed.length;i++){const uploadFile=allowed[i];status(`Memproses foto ${i+1}/${allowed.length} (${(uploadFile.size/1048576).toFixed(1)} MB)...`);if(kind==="gallery"){const id=`gallery-${uniqueId()}`;await saveImage(id,uploadFile);data.galleryIds=[...(data.galleryIds||[]),id]}else{await saveImage(kind,uploadFile);data[kind+"Id"]=kind}}await setDoc(doc(db,"invitation","content"),data,{merge:true});await render();status("Foto berhasil diunggah dan langsung aktif.")}catch(error){console.error(error);status(error?.message||"Foto gagal diunggah.",true)}finally{input.value=""}}
 $("#heroUpload").onchange=e=>upload(e.target,"hero");$("#coupleUpload").onchange=e=>upload(e.target,"couple");$("#galleryUpload").onchange=e=>upload(e.target,"gallery");
 $("#theme").onchange=e=>{data.theme=e.target.value;document.body.dataset.theme=data.theme};
 $("#copyBtn").onclick=async()=>{const name=$("#guestName").value.trim();if(!name)return status("Masukkan nama tamu terlebih dahulu.",true);const url=`${location.href.replace(/admin\.html.*$/,'')}?to=${encodeURIComponent(name)}`;await navigator.clipboard.writeText(url);status("Link tamu berhasil disalin.")};
