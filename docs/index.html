@@ -1,6 +1,83 @@
-<!doctype html><html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Undangan Pernikahan Digital</title><meta name="description" content="Undangan pernikahan digital"><meta property="og:title" content="Undangan Pernikahan Digital"><meta property="og:description" content="Dengan penuh sukacita, kami mengundang Anda ke hari bahagia kami."><meta property="og:type" content="website"><link rel="stylesheet" href="style.css?v=5"><link rel="stylesheet" href="premium.css?v=1"><link rel="stylesheet" href="music.css?v=2"><link rel="stylesheet" href="theme.css?v=3"></head><body>
-<main id="app"><section class="intro" id="home"><span>♡</span><p>“<span data-k="greeting">Tuhan membuat segala sesuatu indah pada waktunya.</span>”</p><small data-k="verseReference">Pengkhotbah 3:11</small></section>
-<section class="couple" id="cerita"><div class="portrait"><img id="coupleImage" src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&amp;fit=crop&amp;w=1100&amp;q=88" alt="Foto pasangan"></div><div class="couple-copy"><p class="eyebrow gold" data-k="coupleLabel">Mempelai</p><h2><span data-k="groom">Benvica</span><br><i>&</i> <span data-k="bride">Jeyta</span></h2><p data-k="story">Dengan penuh sukacita, kami mengundang Bapak/Ibu/Saudara/i untuk hadir, mendoakan, dan menjadi bagian dari hari bahagia kami.</p><div class="signature" data-k="initials">B & J</div></div></section>
-<section id="acara" class="event-section"><p class="eyebrow" data-k="eventLabel">Save the date</p><h2 data-k="eventTitle">Hari Bahagia Kami</h2><div class="event-card"><div class="calendar"><span id="month"></span><strong id="day"></strong><em id="year"></em></div><div class="event-details"><h3 data-k="eventName">Pemberkatan & Resepsi</h3><p>▣ <span data-k="dateText"></span> · <span data-k="time"></span></p><p>⌖ <span data-k="venue"></span><br><small data-k="address"></small></p><a id="mapsLink" class="pill dark-pill" target="_blank" data-k="mapsButtonText">Buka Google Maps</a></div></div><div class="map-wrap"><iframe id="map" title="Google Maps" loading="lazy"></iframe></div></section>
-<section id="galeri" class="gallery-section"><p class="eyebrow gold" data-k="galleryLabel">Our moments</p><h2 data-k="galleryTitle">Galeri Kasih</h2><div class="gallery-grid" id="gallery"></div></section>
-<section id="hadiah" class="gift-section"><p class="eyebrow" data-k="giftLabel">Tanda Kasih</p><h2 data-k="giftTitle">Hadiah Pernikahan</h2><p data-k="giftText">Doa dan kehadiran Anda adalah hadiah terindah. Jika ingin memberikan tanda kasih:</p><div class="bank"><span data-k="bankName">Informasi rekening</span><strong data-k="accountNumber">Memuat data...</strong><small><span data-k="accountPrefix"></span> <span data-k="accountHolder"></span></small></div></section><footer><h2><span data-k="groom">Benvica</span> <i>&</i> <span data-k="bride">Jeyta</span></h2><p data-k="footerText">Terima kasih atas doa dan restu Anda.</p><a href="admin.html" data-k="adminLinkText">Kelola Undangan</a></footer></main><script type="module" src="app.js?v=17"></script></body></html>
+<!doctype html>
+<html lang="id" data-theme="sky">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#2b769f">
+  <title>Undangan Pernikahan Digital</title>
+  <meta name="description" content="Undangan pernikahan digital">
+  <meta property="og:title" content="Undangan Pernikahan Digital">
+  <meta property="og:description" content="Dengan penuh sukacita, kami mengundang Anda ke hari bahagia kami.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="style.css?v=18">
+</head>
+<body class="is-locked">
+  <div class="page-loader" id="pageLoader" aria-hidden="true"><span>B &amp; J</span></div>
+
+  <section class="cover" id="cover" aria-label="Pembuka undangan">
+    <div class="cover-photo" id="coverPhoto"></div><div class="cover-shade"></div>
+    <div class="cover-monogram" data-k="initials">B &amp; J</div>
+    <div class="cover-content reveal-up">
+      <p class="overline" data-k="weddingLabel">The Wedding of</p>
+      <h1><span data-k="groom">Benvica</span> <i>&amp;</i> <span data-k="bride">Jeyta</span></h1>
+      <div class="guest-card"><small data-k="guestHeading">Kepada Yth.</small><strong id="guestName">Bapak/Ibu/Saudara/i</strong><span data-k="guestNote">Mohon maaf apabila ada kesalahan penulisan nama atau gelar</span></div>
+      <button class="outline-button" id="openInvitation" type="button"><span>✉</span> <b data-k="openButtonText">Buka Undangan</b></button>
+    </div>
+  </section>
+
+  <div class="desktop-scene" aria-hidden="true"><div class="desktop-scene-photo" id="desktopPhoto"></div><div class="desktop-scene-copy"><p data-k="weddingLabel">The Wedding of</p><h2><span data-k="groom">Benvica</span><i>&amp;</i><span data-k="bride">Jeyta</span></h2><small data-k="dateDisplay">Sabtu, 3 Oktober 2026</small></div></div>
+
+  <main class="invitation" id="invitation">
+    <section class="hero panel" id="home">
+      <div class="hero-slide active" id="heroSlideA"></div><div class="hero-slide" id="heroSlideB"></div><div class="hero-overlay"></div>
+      <div class="hero-copy reveal"><p class="overline" data-k="weddingLabel">The Wedding of</p><h2><span data-k="groom">Benvica</span> <i>&amp;</i> <span data-k="bride">Jeyta</span></h2><p class="hero-date" data-k="dateDisplay">Sabtu, 3 Oktober 2026</p><div class="countdown" id="countdown" aria-label="Hitung mundur acara"></div></div>
+      <a class="scroll-cue" href="#verse" aria-label="Lanjut ke bawah">⌄</a>
+    </section>
+
+    <section class="verse-section panel" id="verse"><div class="heart-line">♡</div><blockquote data-k="greeting">Tuhan membuat segala sesuatu indah pada waktunya.</blockquote><p data-k="verseReference">Pengkhotbah 3:11</p></section>
+
+    <section class="couple-section panel" id="couple">
+      <header class="section-heading reveal"><p class="overline accent" data-k="coupleLabel">The Groom &amp; The Bride</p><h2 data-k="coupleTitle">Mempelai</h2><p data-k="story">Dengan penuh sukacita, kami mengundang Bapak/Ibu/Saudara/i untuk hadir dan menjadi bagian dari hari bahagia kami.</p></header>
+      <article class="person-card reveal"><div class="person-photo"><img id="groomPhoto" alt="Foto mempelai pria" loading="lazy"></div><p class="person-role" data-k="groomRole">Mempelai Pria</p><h3 data-k="groomFullName">Harly Benvica Tombeng</h3><p data-k="groomParents">Putra dari Bapak ... &amp; Ibu ...</p><a id="groomInstagram" class="social-link" target="_blank" rel="noopener">◎ <span data-k="groomInstagramLabel">Instagram mempelai pria</span></a></article>
+      <div class="couple-and">&amp;</div>
+      <article class="person-card reveal"><div class="person-photo"><img id="bridePhoto" alt="Foto mempelai wanita" loading="lazy"></div><p class="person-role" data-k="brideRole">Mempelai Wanita</p><h3 data-k="brideFullName">Jeyta</h3><p data-k="brideParents">Putri dari Bapak ... &amp; Ibu ...</p><a id="brideInstagram" class="social-link" target="_blank" rel="noopener">◎ <span data-k="brideInstagramLabel">Instagram mempelai wanita</span></a></article>
+    </section>
+
+    <section class="secondary-verse panel"><div class="ornament">❦</div><blockquote data-k="secondVerse">Demikianlah mereka bukan lagi dua, melainkan satu. Karena itu, apa yang telah dipersatukan Allah, tidak boleh diceraikan manusia.</blockquote><p data-k="secondVerseReference">Matius 19:6</p></section>
+
+    <section class="event-section panel" id="events">
+      <header class="section-heading reveal"><p class="overline accent" data-k="eventLabel">Save the date</p><h2 data-k="eventTitle">Hari Bahagia Kami</h2></header>
+      <div class="date-badge reveal"><span id="eventMonth">OKT</span><strong id="eventDay">03</strong><small id="eventYear">2026</small></div>
+      <article class="event-card reveal"><span class="event-icon">♙</span><h3 data-k="ceremonyTitle">Pemberkatan</h3><p class="event-date" data-k="dateDisplay">Sabtu, 3 Oktober 2026</p><p><b data-k="ceremonyTime">14.00 WITA - Selesai</b></p><hr><strong data-k="ceremonyVenue">Gereja</strong><p data-k="ceremonyAddress">Watuliney Tengah, Kecamatan Belang</p><a class="solid-button" id="ceremonyMaps" target="_blank" rel="noopener">⌖ <span data-k="mapsButtonText">Google Maps</span></a></article>
+      <article class="event-card reveal"><span class="event-icon">♧</span><h3 data-k="receptionTitle">Resepsi</h3><p class="event-date" data-k="dateDisplay">Sabtu, 3 Oktober 2026</p><p><b data-k="receptionTime">18.00 WITA - Selesai</b></p><hr><strong data-k="receptionVenue">Kediaman Mempelai</strong><p data-k="receptionAddress">Watuliney Tengah, Kecamatan Belang</p><a class="solid-button" id="receptionMaps" target="_blank" rel="noopener">⌖ <span data-k="mapsButtonText">Google Maps</span></a></article>
+    </section>
+
+    <section class="gallery-section panel" id="gallerySection"><header class="section-heading reveal"><p class="overline accent" data-k="galleryLabel">Our Gallery</p><h2 data-k="galleryTitle">Galeri Kasih</h2></header><div class="gallery-grid" id="gallery"></div></section>
+
+    <section class="story-section panel" id="story"><header class="section-heading reveal"><p class="overline accent" data-k="journeyLabel">Our Story</p><h2 data-k="journeyTitle">Cerita Kami</h2></header><div class="timeline" id="timeline"></div></section>
+
+    <section class="gift-section panel" id="gift">
+      <header class="section-heading reveal"><p class="overline" data-k="giftLabel">Wedding Gift</p><h2 data-k="giftTitle">Tanda Kasih</h2><p data-k="giftText">Doa dan kehadiran Anda adalah hadiah terindah. Jika ingin memberikan tanda kasih, dapat melalui fitur berikut.</p></header>
+      <button class="outline-button light" id="toggleGift" type="button" data-k="showAccountText">Lihat Rekening</button>
+      <div class="gift-details" id="giftDetails" hidden><div class="bank-card"><div class="bank-chip"></div><span data-k="bankName">Informasi rekening</span><strong data-k="accountNumber">Memuat data...</strong><small><span data-k="accountPrefix"></span> <span data-k="accountHolder"></span></small><button id="copyAccount" type="button">⧉ <span data-k="copyAccountText">Salin Rekening</span></button></div><a class="outline-button light" id="giftWhatsapp" target="_blank" rel="noopener">◉ <span data-k="giftConfirmationText">Konfirmasi Hadiah</span></a></div>
+    </section>
+
+    <section class="rsvp-section panel" id="rsvp">
+      <header class="section-heading reveal"><p class="overline accent" data-k="rsvpLabel">Ucapan &amp; RSVP</p><h2 data-k="rsvpTitle">Doa dan Kehadiran</h2><p data-k="rsvpText">Tuliskan ucapan dan konfirmasi kehadiran Anda.</p></header>
+      <div class="attendance-stats" id="attendanceStats"><span><b id="attendingCount">0</b> Hadir</span><span><b id="notAttendingCount">0</b> Tidak Hadir</span><span><b id="maybeCount">0</b> Masih Ragu</span></div>
+      <form class="rsvp-form" id="rsvpForm"><label>Nama<input name="name" id="rsvpName" maxlength="80" required placeholder="Masukkan nama"></label><label>Ucapan<textarea name="message" maxlength="500" rows="4" required placeholder="Berikan ucapan dan doa"></textarea></label><label>Kehadiran<select name="attendance" id="attendance" required><option value="">Pilih kehadiran</option><option value="hadir">Hadir</option><option value="tidak_hadir">Tidak hadir</option><option value="ragu">Masih ragu</option></select></label><label id="guestCountWrap">Jumlah hadir<select name="guestCount"><option value="1">1 Orang</option><option value="2">2 Orang</option><option value="3">3 Orang</option><option value="4">4 Orang</option></select></label><button class="solid-button" type="submit" data-k="rsvpButtonText">Kirim Ucapan</button><p class="form-status" id="rsvpStatus" role="status"></p></form>
+      <div class="wishes" id="wishes"></div>
+    </section>
+
+    <section class="closing-section panel" id="closing"><div class="closing-photo" id="closingPhoto"></div><div class="closing-overlay"></div><div class="closing-copy reveal"><p class="overline" data-k="closingLabel">Thank You</p><h2><span data-k="groom">Benvica</span> <i>&amp;</i> <span data-k="bride">Jeyta</span></h2><p data-k="footerText">Terima kasih atas doa dan restu Anda.</p><div class="closing-socials"><a id="whatsappLink" target="_blank" rel="noopener">Whatsapp</a><a id="instagramLink" target="_blank" rel="noopener">Instagram</a></div><small data-k="closingCredit">Made with love</small></div></section>
+  </main>
+
+  <button class="music-control" id="musicButton" type="button" aria-label="Putar musik"><span>♫</span><small>Music</small></button>
+  <nav class="bottom-nav" aria-label="Navigasi undangan"><a href="#home"><span>⌂</span><small data-k="navHome">Home</small></a><a href="#couple"><span>♡</span><small data-k="navCouple">Kami</small></a><a href="#events"><span>▣</span><small data-k="navEvent">Acara</small></a><a href="#gallerySection"><span>▦</span><small data-k="navGallery">Galeri</small></a><a href="#gift"><span>♧</span><small data-k="navGift">Hadiah</small></a></nav>
+  <div class="lightbox" id="lightbox" hidden><button id="lightboxClose" aria-label="Tutup">×</button><img id="lightboxImage" alt="Foto galeri diperbesar"><button id="lightboxPrev" class="lightbox-arrow prev" aria-label="Foto sebelumnya">‹</button><button id="lightboxNext" class="lightbox-arrow next" aria-label="Foto selanjutnya">›</button></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script type="module" src="app.js?v=18"></script>
+</body>
+</html>
