@@ -12,13 +12,13 @@ $("#logoutBtn").onclick=()=>signOut(auth);
 onAuthStateChanged(auth,async user=>{const ok=user?.email?.toLowerCase()===ADMIN;$("#login").hidden=ok;$("#editor").hidden=!ok;$("#user").textContent=user?.email||"Silakan masuk";if(user&&!ok){await signOut(auth);alert("Akun ini bukan admin undangan.");return}if(ok){try{const snap=await getDoc(doc(db,"invitation","content"));data={...defaults,...(snap.exists()?snap.data():{})};render()}catch(e){status(`Data belum dapat dibuka: ${e.message}`,true)}}});
 
 function esc(v=""){return String(v).replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]))}
-async function imageUrl(id){if(!id)return"";const snap=await getDoc(doc(db,"invitationImages",id));return snap.exists()?snap.data().dataUrl:""}
+async function imageUrl(id){if(!id)return"";const snap=await getDoc(doc(db,"invitation",id));return snap.exists()?snap.data().dataUrl:""}
 async function render(){
   $("#fields").innerHTML=keys.map(([k,l,t])=>`<label class="field"><span>${l}</span>${t==="textarea"?`<textarea name="${k}">${esc(data[k])}</textarea>`:`<input name="${k}" type="${t||"text"}" value="${esc(data[k])}">`}</label>`).join("");
   $("#theme").value=data.theme||"forest";document.body.dataset.theme=data.theme||"forest";
   const ids=data.galleryIds||[],urls=await Promise.all(ids.map(imageUrl));
   $("#thumbs").innerHTML=urls.map((url,i)=>`<div>${url?`<img src="${url}" alt="Galeri">`:""}<button type="button" data-del="${i}">Hapus</button></div>`).join("");
-  document.querySelectorAll("[data-del]").forEach(btn=>btn.onclick=async()=>{const i=+btn.dataset.del,id=ids[i];if(id)await deleteDoc(doc(db,"invitationImages",id));data.galleryIds.splice(i,1);await setDoc(doc(db,"invitation","content"),data,{merge:true});await render()});
+  document.querySelectorAll("[data-del]").forEach(btn=>btn.onclick=async()=>{const i=+btn.dataset.del,id=ids[i];if(id)await deleteDoc(doc(db,"invitation",id));data.galleryIds.splice(i,1);await setDoc(doc(db,"invitation","content"),data,{merge:true});await render()});
 }
 
 async function compress(file){
@@ -28,7 +28,7 @@ async function compress(file){
   if(!blob||blob.size>750000)throw new Error("Foto masih terlalu besar. Gunakan foto di bawah 8 MB.");
   return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(blob)});
 }
-async function saveImage(id,file){const dataUrl=await compress(file);await setDoc(doc(db,"invitationImages",id),{dataUrl,updatedAt:new Date().toISOString()});return id}
+async function saveImage(id,file){const dataUrl=await compress(file);await setDoc(doc(db,"invitation",id),{dataUrl,updatedAt:new Date().toISOString()});return id}
 async function upload(input,kind){const files=[...input.files];if(!files.length)return;try{status("Mengompres dan mengunggah foto...");if(kind==="gallery"){for(const file of files.slice(0,6-(data.galleryIds?.length||0))){const id=`gallery-${crypto.randomUUID()}`;await saveImage(id,file);data.galleryIds=[...(data.galleryIds||[]),id]}}else{await saveImage(kind,file);data[kind+"Id"]=kind}await setDoc(doc(db,"invitation","content"),data,{merge:true});await render();status("Foto berhasil diunggah dan langsung aktif.")}catch(e){status(e.message,true)}finally{input.value=""}}
 $("#heroUpload").onchange=e=>upload(e.target,"hero");$("#coupleUpload").onchange=e=>upload(e.target,"couple");$("#galleryUpload").onchange=e=>upload(e.target,"gallery");
 $("#theme").onchange=e=>{data.theme=e.target.value;document.body.dataset.theme=data.theme};
