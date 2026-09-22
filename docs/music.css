@@ -1,0 +1,7 @@
+.music-control{position:fixed;z-index:150;right:18px;bottom:20px;width:62px;height:62px;border:1px solid #d9c89e;border-radius:50%;background:var(--paper);color:var(--ink);box-shadow:0 8px 28px #15291c35;cursor:pointer;display:grid;place-content:center;gap:1px}
+.music-control[hidden]{display:none}
+.music-control span{font-size:24px;line-height:20px}
+.music-control small{font:600 8px Montserrat,sans-serif;text-transform:uppercase;letter-spacing:.08em}
+.music-control.playing span{animation:musicSpin 3s linear infinite}
+@keyframes musicSpin{to{transform:rotate(360deg)}}
+@media(max-width:700px){.music-control{right:18px;bottom:82px;width:54px;height:54px}}

@@ -3,7 +3,7 @@ import{GoogleAuthProvider,signInWithPopup,onAuthStateChanged,signOut}from"https:
 import{doc,getDoc,setDoc,deleteDoc}from"https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
 const ADMIN="remajasilo.rs@gmail.com";
-const keys=[["groom","Nama mempelai pria"],["bride","Nama mempelai wanita"],["greeting","Ayat / kutipan"],["date","Tanggal","date"],["time","Waktu"],["venue","Nama lokasi"],["address","Alamat"],["mapsUrl","Link Google Maps"],["story","Cerita / kalimat undangan","textarea"],["bankName","Nama bank"],["accountNumber","Nomor rekening"],["accountHolder","Nama pemilik rekening"]];
+const keys=[["groom","Nama mempelai pria"],["bride","Nama mempelai wanita"],["greeting","Ayat / kutipan"],["date","Tanggal","date"],["time","Waktu"],["venue","Nama lokasi"],["address","Alamat"],["mapsUrl","Link Google Maps"],["story","Cerita / kalimat undangan","textarea"],["musicTitle","Judul musik"],["musicUrl","URL musik MP3 / OGG"],["bankName","Nama bank"],["accountNumber","Nomor rekening"],["accountHolder","Nama pemilik rekening"]];
 const defaults={theme:"forest",galleryIds:[]};let data={...defaults};
 const $=s=>document.querySelector(s),status=(t,bad=false)=>{const el=$("#status");el.textContent=t;el.classList.toggle("error",bad)};
 
