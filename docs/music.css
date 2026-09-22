@@ -3,5 +3,6 @@
 .music-control span{font-size:24px;line-height:20px}
 .music-control small{font:600 8px Montserrat,sans-serif;text-transform:uppercase;letter-spacing:.08em}
 .music-control.playing span{animation:musicSpin 3s linear infinite}
+.youtube-music-frame{position:fixed;left:-10px;bottom:-10px;width:2px;height:2px;border:0;opacity:.01;pointer-events:none}
 @keyframes musicSpin{to{transform:rotate(360deg)}}
 @media(max-width:700px){.music-control{right:18px;bottom:82px;width:54px;height:54px}}
