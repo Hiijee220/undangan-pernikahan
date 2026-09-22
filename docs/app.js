@@ -9,7 +9,7 @@ const content=await load();document.documentElement.dataset.theme=content.theme|
 const weddingDate=new Date(`${content.date}T14:00:00+08:00`);content.dateText=new Intl.DateTimeFormat("id-ID",{weekday:"long",day:"numeric",month:"long",year:"numeric"}).format(weddingDate);
 document.querySelectorAll("[data-k]").forEach(el=>el.textContent=content[el.dataset.k]||"");
 const hero=document.querySelector(".hero");if(hero)hero.style.backgroundImage=`linear-gradient(180deg,${overlay}33,${overlay}cc),url('${content.heroImage}')`;document.querySelector("#coupleImage").src=content.coupleImage;
-const guest=new URLSearchParams(location.search).get("to")||"Bapak/Ibu/Saudara/i";document.querySelector("#guest").textContent=guest;
+const guest=new URLSearchParams(location.search).get("to")||"Bapak/Ibu/Saudara/i",guestElement=document.querySelector("#guest");if(guestElement)guestElement.textContent=guest;
 document.querySelector("#month").textContent=weddingDate.toLocaleDateString("id-ID",{month:"short"});document.querySelector("#day").textContent=weddingDate.getDate();document.querySelector("#year").textContent=weddingDate.getFullYear();document.querySelector("#mapsLink").href=content.mapsUrl;document.querySelector("#map").src=`https://www.google.com/maps?q=${encodeURIComponent(content.address)}&output=embed`;
 document.querySelector("#gallery").innerHTML=content.gallery.map((url,i)=>`<img src="${url}" alt="Foto galeri ${i+1}" loading="lazy">`).join("");
 
