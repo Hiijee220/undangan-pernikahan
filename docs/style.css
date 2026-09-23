@@ -37,3 +37,116 @@ html[data-theme="terracotta"]{--primary:#8b4c3c;--primary-rgb:139,76,60;--soft:#
 @media(max-width:700px){.email-login-form,.field-group-grid,.upload-grid{grid-template-columns:1fr}.field-wide{grid-column:auto}.guest-link-row{flex-direction:column}.thumbs{grid-template-columns:repeat(3,1fr)}.admin-card{padding:19px}.admin-wrap{padding-inline:12px}.secondary{margin-left:0}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
 @keyframes revealUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}@keyframes float{50%{transform:translateY(7px)}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{opacity:.35}}
+
+
+/* Dekorasi latar unik untuk setiap pilihan tema */
+:root{
+  --decor-size:240px 190px;
+  --decor-paper:
+    radial-gradient(ellipse at 18% 25%,rgba(44,111,79,.10) 0 7px,transparent 8px),
+    radial-gradient(ellipse at 24% 31%,rgba(44,111,79,.08) 0 11px,transparent 12px),
+    linear-gradient(62deg,transparent 48%,rgba(91,139,105,.08) 49% 50%,transparent 51%);
+  --decor-soft:
+    radial-gradient(ellipse at 80% 23%,rgba(44,111,79,.14) 0 8px,transparent 9px),
+    radial-gradient(ellipse at 74% 31%,rgba(44,111,79,.10) 0 12px,transparent 13px),
+    linear-gradient(118deg,transparent 48%,rgba(91,139,105,.10) 49% 50%,transparent 51%);
+  --decor-dark:
+    radial-gradient(ellipse at 16% 26%,rgba(255,255,255,.07) 0 8px,transparent 9px),
+    radial-gradient(ellipse at 23% 33%,rgba(215,180,106,.10) 0 11px,transparent 12px);
+}
+html[data-theme="sky"]{
+  --decor-size:270px 190px;
+  --decor-paper:
+    radial-gradient(ellipse at 18% 27%,rgba(91,174,219,.14) 0 22px,transparent 23px),
+    radial-gradient(ellipse at 28% 27%,rgba(91,174,219,.11) 0 29px,transparent 30px),
+    radial-gradient(ellipse at 38% 29%,rgba(91,174,219,.12) 0 18px,transparent 19px),
+    radial-gradient(circle at 80% 69%,rgba(56,137,184,.18) 0 5px,transparent 6px),
+    radial-gradient(circle at 75% 75%,rgba(56,137,184,.15) 0 5px,transparent 6px),
+    radial-gradient(circle at 85% 75%,rgba(56,137,184,.15) 0 5px,transparent 6px),
+    radial-gradient(circle at 80% 80%,rgba(215,172,93,.20) 0 4px,transparent 5px);
+  --decor-soft:
+    radial-gradient(ellipse at 15% 24%,rgba(255,255,255,.72) 0 24px,transparent 25px),
+    radial-gradient(ellipse at 26% 24%,rgba(255,255,255,.60) 0 31px,transparent 32px),
+    radial-gradient(ellipse at 38% 27%,rgba(255,255,255,.64) 0 20px,transparent 21px),
+    radial-gradient(circle at 82% 72%,rgba(48,133,181,.20) 0 6px,transparent 7px),
+    radial-gradient(circle at 76% 78%,rgba(48,133,181,.15) 0 6px,transparent 7px),
+    radial-gradient(circle at 88% 78%,rgba(48,133,181,.15) 0 6px,transparent 7px);
+  --decor-dark:
+    radial-gradient(ellipse at 17% 25%,rgba(255,255,255,.09) 0 23px,transparent 24px),
+    radial-gradient(ellipse at 28% 25%,rgba(255,255,255,.07) 0 30px,transparent 31px),
+    radial-gradient(circle at 82% 74%,rgba(215,172,93,.16) 0 5px,transparent 6px);
+}
+html[data-theme="rose"]{
+  --decor-size:210px 210px;
+  --decor-paper:
+    radial-gradient(ellipse at 25% 30%,rgba(196,112,137,.13) 0 13px,transparent 14px),
+    radial-gradient(ellipse at 34% 39%,rgba(196,112,137,.10) 0 15px,transparent 16px),
+    radial-gradient(ellipse at 74% 72%,rgba(115,61,77,.09) 0 11px,transparent 12px);
+  --decor-soft:
+    radial-gradient(ellipse at 22% 28%,rgba(255,255,255,.72) 0 15px,transparent 16px),
+    radial-gradient(ellipse at 34% 38%,rgba(201,149,159,.19) 0 18px,transparent 19px),
+    radial-gradient(ellipse at 76% 74%,rgba(115,61,77,.12) 0 12px,transparent 13px);
+  --decor-dark:
+    radial-gradient(ellipse at 24% 30%,rgba(255,255,255,.08) 0 14px,transparent 15px),
+    radial-gradient(ellipse at 35% 40%,rgba(201,149,159,.13) 0 17px,transparent 18px);
+}
+html[data-theme="navy"]{
+  --decor-size:160px 160px;
+  --decor-paper:
+    radial-gradient(circle at 20% 20%,rgba(28,45,71,.15) 0 2px,transparent 3px),
+    radial-gradient(circle at 75% 68%,rgba(196,166,108,.22) 0 3px,transparent 4px),
+    linear-gradient(45deg,transparent 49%,rgba(28,45,71,.05) 50%,transparent 51%),
+    linear-gradient(-45deg,transparent 49%,rgba(28,45,71,.05) 50%,transparent 51%);
+  --decor-soft:
+    radial-gradient(circle at 18% 22%,rgba(28,45,71,.18) 0 2px,transparent 3px),
+    radial-gradient(circle at 74% 70%,rgba(196,166,108,.25) 0 3px,transparent 4px),
+    linear-gradient(45deg,transparent 49%,rgba(28,45,71,.07) 50%,transparent 51%);
+  --decor-dark:
+    radial-gradient(circle at 18% 22%,rgba(255,255,255,.18) 0 2px,transparent 3px),
+    radial-gradient(circle at 73% 68%,rgba(196,166,108,.24) 0 3px,transparent 4px),
+    linear-gradient(45deg,transparent 49%,rgba(255,255,255,.035) 50%,transparent 51%);
+}
+html[data-theme="sage"]{
+  --decor-size:230px 180px;
+  --decor-paper:
+    radial-gradient(ellipse at 24% 30%,rgba(91,126,105,.14) 0 8px,transparent 9px),
+    radial-gradient(ellipse at 33% 39%,rgba(91,126,105,.10) 0 12px,transparent 13px),
+    linear-gradient(55deg,transparent 49%,rgba(64,89,77,.07) 50%,transparent 51%);
+  --decor-soft:
+    radial-gradient(ellipse at 76% 28%,rgba(64,89,77,.16) 0 9px,transparent 10px),
+    radial-gradient(ellipse at 67% 39%,rgba(64,89,77,.11) 0 13px,transparent 14px),
+    linear-gradient(125deg,transparent 49%,rgba(64,89,77,.08) 50%,transparent 51%);
+  --decor-dark:
+    radial-gradient(ellipse at 22% 31%,rgba(255,255,255,.08) 0 9px,transparent 10px),
+    radial-gradient(ellipse at 32% 41%,rgba(183,154,104,.12) 0 12px,transparent 13px);
+}
+html[data-theme="terracotta"]{
+  --decor-size:250px 210px;
+  --decor-paper:
+    radial-gradient(circle at 21% 28%,rgba(212,163,95,.16) 0 18px,transparent 19px),
+    radial-gradient(circle at 21% 28%,transparent 0 30px,rgba(139,76,60,.09) 31px 33px,transparent 34px),
+    radial-gradient(ellipse at 76% 77%,transparent 0 25px,rgba(139,76,60,.08) 26px 29px,transparent 30px);
+  --decor-soft:
+    radial-gradient(circle at 20% 28%,rgba(212,163,95,.22) 0 19px,transparent 20px),
+    radial-gradient(circle at 20% 28%,transparent 0 32px,rgba(139,76,60,.11) 33px 36px,transparent 37px),
+    radial-gradient(ellipse at 77% 76%,transparent 0 27px,rgba(139,76,60,.10) 28px 31px,transparent 32px);
+  --decor-dark:
+    radial-gradient(circle at 20% 28%,rgba(212,163,95,.14) 0 18px,transparent 19px),
+    radial-gradient(circle at 20% 28%,transparent 0 31px,rgba(255,255,255,.07) 32px 34px,transparent 35px);
+}
+.couple-section,.gallery-section,.rsvp-section{
+  background-color:var(--paper);
+  background-image:var(--decor-paper);
+  background-size:var(--decor-size);
+}
+.event-section,.story-section,.secondary-verse{
+  background-color:var(--soft);
+  background-image:var(--decor-soft);
+  background-size:var(--decor-size);
+}
+.verse-section,.gift-section{
+  background-color:var(--primary);
+  background-image:var(--decor-dark);
+  background-size:var(--decor-size);
+}
+.couple-section>*,.gallery-section>*,.rsvp-section>*,.event-section>*,.story-section>*,.secondary-verse>*,.verse-section>*,.gift-section>*{position:relative;z-index:1}
