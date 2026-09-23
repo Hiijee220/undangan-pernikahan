@@ -23,7 +23,7 @@ const fallback={
   closingLabel:"Thank You",footerText:"Terima kasih atas doa dan restu Anda.",closingCredit:"Made with love",whatsappUrl:"",instagramUrl:"",
   musicTitle:"Wedding music",musicUrl:"",theme:"sky",navHome:"Home",navCouple:"Kami",navEvent:"Acara",navGallery:"Galeri",navGift:"Hadiah",
   countdownDay:"Hari",countdownHour:"Jam",countdownMinute:"Menit",countdownSecond:"Detik",
-  coverId:"hero",heroId:"hero",openingIds:[],groomImageId:"couple",brideImageId:"couple",story1ImageId:"",story2ImageId:"",story3ImageId:"",closingImageId:"hero",galleryIds:[],
+  coverId:"hero",heroId:"hero",openingIds:[],groomImageId:"groom",brideImageId:"bride",story1ImageId:"",story2ImageId:"",story3ImageId:"",closingImageId:"hero",galleryIds:[],
   coverImage:"https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=84",
   groomImage:"https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=900&q=84",
   brideImage:"https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=84",
