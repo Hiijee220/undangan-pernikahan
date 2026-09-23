@@ -36,7 +36,7 @@ const defaults={
   giftLabel:"Wedding Gift",giftTitle:"Tanda Kasih",giftText:"Doa dan kehadiran Anda adalah hadiah terindah. Jika ingin memberikan tanda kasih, dapat melalui fitur berikut.",showAccountText:"Lihat Rekening",hideAccountText:"Sembunyikan Rekening",copyAccountText:"Salin Rekening",giftConfirmationText:"Konfirmasi Hadiah",bankName:"Bank Mandiri",accountNumber:"",accountPrefix:"a.n.",accountHolder:"",giftWhatsappNumber:"",giftWhatsappMessage:"Halo, saya ingin mengonfirmasi hadiah pernikahan.",
   rsvpLabel:"Ucapan & RSVP",rsvpTitle:"Doa dan Kehadiran",rsvpText:"Tuliskan ucapan dan konfirmasi kehadiran Anda.",rsvpButtonText:"Kirim Ucapan",musicTitle:"Wedding music",musicUrl:"",closingLabel:"Thank You",footerText:"Terima kasih atas doa dan restu Anda.",closingCredit:"Made with love",whatsappUrl:"",instagramUrl:"",
   navHome:"Home",navCouple:"Kami",navEvent:"Acara",navGallery:"Galeri",navGift:"Hadiah",countdownDay:"Hari",countdownHour:"Jam",countdownMinute:"Menit",countdownSecond:"Detik",theme:"sky",
-  coverId:"hero",heroId:"hero",groomImageId:"couple",brideImageId:"couple",story1ImageId:"",story2ImageId:"",story3ImageId:"",closingImageId:"hero",openingIds:[],galleryIds:[]
+  coverId:"hero",heroId:"hero",groomImageId:"groom",brideImageId:"bride",story1ImageId:"",story2ImageId:"",story3ImageId:"",closingImageId:"hero",openingIds:[],galleryIds:[]
 };
 const imageSlots=[
   ["coverId","Foto sampul utama","hero"],["groomImageId","Foto mempelai pria","groom"],["brideImageId","Foto mempelai wanita","bride"],["story1ImageId","Foto cerita 1","story-1"],["story2ImageId","Foto cerita 2","story-2"],["story3ImageId","Foto cerita 3","story-3"],["closingImageId","Foto penutup","closing"]
@@ -53,8 +53,32 @@ $("#emailLoginForm").onsubmit=async event=>{event.preventDefault();try{setLoginS
 $("#resetPasswordBtn").onclick=async()=>{const email=$("#adminEmail").value.trim();if(!email)return setLoginStatus("Masukkan email admin terlebih dahulu.",true);try{await sendPasswordResetEmail(auth,email);setLoginStatus("Link reset password telah dikirim ke email admin.")}catch(error){setLoginStatus(`Reset password gagal: ${error.message}`,true)}};
 $("#logoutBtn").onclick=()=>signOut(auth);
 
-onAuthStateChanged(auth,async user=>{const loggedIn=!!user;$("#login").hidden=loggedIn;$("#editor").hidden=!loggedIn;$("#user").textContent=user?.email||"Silakan masuk";if(!loggedIn)return;try{const snapshot=await getDoc(doc(db,"invitation","content")),saved=snapshot.exists()?snapshot.data():{};data={...defaults,...saved};migrateLegacy(saved);await render()}catch(error){setStatus(`Data belum dapat dibuka: ${error.message}`,true)}});
-function migrateLegacy(saved){if(!saved.ceremonyTitle&&saved.eventName)data.ceremonyTitle=saved.eventName;if(!saved.ceremonyTime&&saved.time)data.ceremonyTime=saved.time;if(!saved.ceremonyVenue&&saved.venue)data.ceremonyVenue=saved.venue;if(!saved.ceremonyAddress&&saved.address)data.ceremonyAddress=saved.address;if(!saved.ceremonyMapsUrl&&saved.mapsUrl)data.ceremonyMapsUrl=saved.mapsUrl;if(!saved.receptionMapsUrl&&saved.mapsUrl)data.receptionMapsUrl=saved.mapsUrl;if(!saved.coverId&&saved.heroId)data.coverId=saved.heroId;if(!saved.groomImageId&&saved.coupleId)data.groomImageId=saved.coupleId;if(!saved.brideImageId&&saved.coupleId)data.brideImageId=saved.coupleId}
+onAuthStateChanged(auth,async user=>{const loggedIn=!!user;$("#login").hidden=loggedIn;$("#editor").hidden=!loggedIn;$("#user").textContent=user?.email||"Silakan masuk";if(!loggedIn)return;try{const snapshot=await getDoc(doc(db,"invitation","content")),saved=snapshot.exists()?snapshot.data():{};data={...defaults,...saved};await migrateLegacy(saved);await render()}catch(error){setStatus(`Data belum dapat dibuka: ${error.message}`,true)}});
+async function migrateLegacy(saved){
+  if(!saved.ceremonyTitle&&saved.eventName)data.ceremonyTitle=saved.eventName;
+  if(!saved.ceremonyTime&&saved.time)data.ceremonyTime=saved.time;
+  if(!saved.ceremonyVenue&&saved.venue)data.ceremonyVenue=saved.venue;
+  if(!saved.ceremonyAddress&&saved.address)data.ceremonyAddress=saved.address;
+  if(!saved.ceremonyMapsUrl&&saved.mapsUrl)data.ceremonyMapsUrl=saved.mapsUrl;
+  if(!saved.receptionMapsUrl&&saved.mapsUrl)data.receptionMapsUrl=saved.mapsUrl;
+  if(!saved.coverId&&saved.heroId)data.coverId=saved.heroId;
+  if(!saved.groomImageId&&saved.coupleId)data.groomImageId=saved.coupleId;
+  if(!saved.brideImageId&&saved.coupleId)data.brideImageId=saved.coupleId;
+  if(!data.groomImageId)data.groomImageId="groom";
+  if(!data.brideImageId)data.brideImageId="bride";
+  if(data.groomImageId===data.brideImageId){
+    const sharedId=data.groomImageId;
+    const snapshot=await getDoc(doc(db,"invitation",sharedId));
+    const dataUrl=snapshot.exists()?snapshot.data().dataUrl||"":"";
+    if(dataUrl)await Promise.all([
+      setDoc(doc(db,"invitation","groom"),{dataUrl,updatedAt:new Date().toISOString()}),
+      setDoc(doc(db,"invitation","bride"),{dataUrl,updatedAt:new Date().toISOString()})
+    ]);
+    data.groomImageId="groom";
+    data.brideImageId="bride";
+    await setDoc(doc(db,"invitation","content"),{groomImageId:"groom",brideImageId:"bride"},{merge:true});
+  }
+}
 
 function renderFields(){$("#fields").innerHTML=fieldGroups.map(([title,fields])=>`<section class="field-group"><h3>${esc(title)}</h3><div class="field-group-grid">${fields.map(([key,label,type])=>`<label class="field ${type==="textarea"?"field-wide":""}"><span>${esc(label)}</span>${type==="textarea"?`<textarea name="${key}">${esc(data[key])}</textarea>`:`<input name="${key}" type="${type||"text"}" value="${esc(data[key])}">`}</label>`).join("")}</div></section>`).join("")}
 async function imageUrl(id){if(!id)return"";try{const snapshot=await getDoc(doc(db,"invitation",id));return snapshot.exists()?snapshot.data().dataUrl||"":""}catch{return""}}
@@ -71,7 +95,7 @@ function canvasBlob(canvas,quality){return new Promise((resolve,reject)=>canvas.
 async function compress(file){if(!file)throw new Error("Tidak ada foto yang dipilih.");if(file.size>MAX_INPUT_SIZE)throw new Error(`Ukuran ${file.name} melebihi batas 10 MB.`);const image=await loadPhoto(file),max=1500,scale=Math.min(1,max/Math.max(image.naturalWidth,image.naturalHeight)),canvas=document.createElement("canvas");canvas.width=Math.max(1,Math.round(image.naturalWidth*scale));canvas.height=Math.max(1,Math.round(image.naturalHeight*scale));const context=canvas.getContext("2d");context.fillStyle="#fff";context.fillRect(0,0,canvas.width,canvas.height);context.drawImage(image,0,0,canvas.width,canvas.height);let quality=.82,blob=await canvasBlob(canvas,quality);while(blob.size>560000&&quality>.32){quality-=.1;blob=await canvasBlob(canvas,quality)}if(blob.size>650000)throw new Error("Foto masih terlalu besar setelah dikompres. Pilih foto lain.");return await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=()=>reject(new Error("Hasil foto tidak dapat diproses."));reader.readAsDataURL(blob)})}
 function uniqueId(prefix){return`${prefix}-${Date.now()}-${Math.random().toString(36).slice(2,8)}`}
 async function saveImage(id,file){const dataUrl=await compress(file);await setDoc(doc(db,"invitation",id),{dataUrl,updatedAt:new Date().toISOString()});return id}
-async function uploadSingle(input){const file=input.files?.[0],key=input.dataset.imageSlot;if(!file)return;try{setStatus(`Memproses ${file.name}...`);const defaultId=imageSlots.find(slot=>slot[0]===key)?.[2]||uniqueId("photo"),id=data[key]||defaultId;await saveImage(id,file);data[key]=id;if(key==="coverId")data.heroId=id;await setDoc(doc(db,"invitation","content"),data,{merge:true});await render();setStatus("Foto berhasil diunggah dan langsung aktif.")}catch(error){setStatus(error.message,true)}finally{input.value=""}}
+async function uploadSingle(input){const file=input.files?.[0],key=input.dataset.imageSlot;if(!file)return;try{setStatus(`Memproses ${file.name}...`);const defaultId=imageSlots.find(slot=>slot[0]===key)?.[2]||uniqueId("photo"),isCoupleSlot=key==="groomImageId"||key==="brideImageId",id=isCoupleSlot?defaultId:(data[key]||defaultId);await saveImage(id,file);data[key]=id;if(key==="coverId")data.heroId=id;await setDoc(doc(db,"invitation","content"),data,{merge:true});await render();setStatus("Foto berhasil diunggah dan langsung aktif.")}catch(error){setStatus(error.message,true)}finally{input.value=""}}
 async function uploadCollection(input,key,limit){const files=Array.from(input.files||[]);if(!files.length)return;try{const current=Array.isArray(data[key])?data[key]:[],allowed=files.slice(0,Math.max(0,limit-current.length));if(!allowed.length)throw new Error(`Batas maksimal ${limit} foto sudah tercapai.`);for(let index=0;index<allowed.length;index++){setStatus(`Memproses foto ${index+1}/${allowed.length}...`);const id=uniqueId(key==="galleryIds"?"gallery":"opening");await saveImage(id,allowed[index]);current.push(id)}data[key]=current;await setDoc(doc(db,"invitation","content"),data,{merge:true});await renderCollection(key,key==="openingIds"?"#openingThumbs":"#galleryThumbs");setStatus("Semua foto berhasil diunggah.")}catch(error){setStatus(error.message,true)}finally{input.value=""}}
 $("#openingUpload").onchange=event=>uploadCollection(event.target,"openingIds",4);$("#galleryUpload").onchange=event=>uploadCollection(event.target,"galleryIds",10);
 $("#theme").onchange=event=>{data.theme=event.target.value;document.documentElement.dataset.theme=data.theme};
