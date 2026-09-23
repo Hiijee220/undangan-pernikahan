@@ -150,3 +150,61 @@ html[data-theme="terracotta"]{
   background-size:var(--decor-size);
 }
 .couple-section>*,.gallery-section>*,.rsvp-section>*,.event-section>*,.story-section>*,.secondary-verse>*,.verse-section>*,.gift-section>*{position:relative;z-index:1}
+
+
+/* Efek foto dan rangkaian bunga tema */
+:root{--flower-primary:#386f58;--flower-secondary:#d7b46a}
+html[data-theme="sky"]{--flower-primary:#348fbe;--flower-secondary:#9fd3eb}
+html[data-theme="rose"]{--flower-primary:#b85f7c;--flower-secondary:#e5a9ba}
+html[data-theme="navy"]{--flower-primary:#c4a66c;--flower-secondary:#6e84a7}
+html[data-theme="sage"]{--flower-primary:#648774;--flower-secondary:#b79a68}
+html[data-theme="terracotta"]{--flower-primary:#bd6c50;--flower-secondary:#dfa55d}
+
+.couple-section,.event-section,.gallery-section,.story-section,.gift-section,.rsvp-section,.secondary-verse{isolation:isolate}
+.couple-section::before,.event-section::before,.gallery-section::before,.story-section::before,.gift-section::before,.rsvp-section::before,.secondary-verse::before,
+.couple-section::after,.event-section::after,.gallery-section::after,.story-section::after,.gift-section::after,.rsvp-section::after,.secondary-verse::after{
+  content:"";position:absolute;z-index:0;width:150px;height:205px;pointer-events:none;opacity:.36;
+  background:linear-gradient(145deg,var(--flower-primary),var(--flower-secondary));
+  -webkit-mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20180%20230'%3E%3Cpath%20d='M22%20222C65%20175%2079%20115%20120%2024M52%20176C38%20149%2037%20132%2047%20114M74%20139C98%20121%20114%2099%20123%2075M94%2097C75%2078%2070%2058%2077%2040M111%2057C137%2056%20153%2045%20162%2028'%20fill='none'%20stroke='black'%20stroke-width='5'%20stroke-linecap='round'/%3E%3Cg%20fill='black'%3E%3Cellipse%20cx='45'%20cy='112'%20rx='12'%20ry='24'%20transform='rotate(-35%2045%20112)'/%3E%3Cellipse%20cx='52'%20cy='145'%20rx='11'%20ry='23'%20transform='rotate(42%2052%20145)'/%3E%3Cellipse%20cx='84'%20cy='129'%20rx='12'%20ry='25'%20transform='rotate(52%2084%20129)'/%3E%3Cellipse%20cx='103'%20cy='91'%20rx='11'%20ry='24'%20transform='rotate(45%20103%2091)'/%3E%3Cellipse%20cx='77'%20cy='67'%20rx='11'%20ry='23'%20transform='rotate(-42%2077%2067)'/%3E%3Cellipse%20cx='133'%20cy='48'%20rx='11'%20ry='23'%20transform='rotate(62%20133%2048)'/%3E%3Ccircle%20cx='124'%20cy='23'%20r='8'/%3E%3Ccircle%20cx='111'%20cy='20'%20r='8'/%3E%3Ccircle%20cx='117'%20cy='34'%20r='8'/%3E%3Ccircle%20cx='130'%20cy='35'%20r='8'/%3E%3Ccircle%20cx='151'%20cy='25'%20r='7'/%3E%3Ccircle%20cx='162'%20cy='19'%20r='7'/%3E%3Ccircle%20cx='164'%20cy='32'%20r='7'/%3E%3Ccircle%20cx='153'%20cy='38'%20r='7'/%3E%3Ccircle%20cx='37'%20cy='188'%20r='8'/%3E%3Ccircle%20cx='24'%20cy='184'%20r='8'/%3E%3Ccircle%20cx='30'%20cy='199'%20r='8'/%3E%3Ccircle%20cx='43'%20cy='201'%20r='8'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20180%20230'%3E%3Cpath%20d='M22%20222C65%20175%2079%20115%20120%2024M52%20176C38%20149%2037%20132%2047%20114M74%20139C98%20121%20114%2099%20123%2075M94%2097C75%2078%2070%2058%2077%2040M111%2057C137%2056%20153%2045%20162%2028'%20fill='none'%20stroke='black'%20stroke-width='5'%20stroke-linecap='round'/%3E%3Cg%20fill='black'%3E%3Cellipse%20cx='45'%20cy='112'%20rx='12'%20ry='24'%20transform='rotate(-35%2045%20112)'/%3E%3Cellipse%20cx='52'%20cy='145'%20rx='11'%20ry='23'%20transform='rotate(42%2052%20145)'/%3E%3Cellipse%20cx='84'%20cy='129'%20rx='12'%20ry='25'%20transform='rotate(52%2084%20129)'/%3E%3Cellipse%20cx='103'%20cy='91'%20rx='11'%20ry='24'%20transform='rotate(45%20103%2091)'/%3E%3Cellipse%20cx='77'%20cy='67'%20rx='11'%20ry='23'%20transform='rotate(-42%2077%2067)'/%3E%3Cellipse%20cx='133'%20cy='48'%20rx='11'%20ry='23'%20transform='rotate(62%20133%2048)'/%3E%3Ccircle%20cx='124'%20cy='23'%20r='8'/%3E%3Ccircle%20cx='111'%20cy='20'%20r='8'/%3E%3Ccircle%20cx='117'%20cy='34'%20r='8'/%3E%3Ccircle%20cx='130'%20cy='35'%20r='8'/%3E%3Ccircle%20cx='151'%20cy='25'%20r='7'/%3E%3Ccircle%20cx='162'%20cy='19'%20r='7'/%3E%3Ccircle%20cx='164'%20cy='32'%20r='7'/%3E%3Ccircle%20cx='153'%20cy='38'%20r='7'/%3E%3Ccircle%20cx='37'%20cy='188'%20r='8'/%3E%3Ccircle%20cx='24'%20cy='184'%20r='8'/%3E%3Ccircle%20cx='30'%20cy='199'%20r='8'/%3E%3Ccircle%20cx='43'%20cy='201'%20r='8'/%3E%3C/g%3E%3C/svg%3E") center/contain no-repeat
+}
+.couple-section::before,.event-section::before,.gallery-section::before,.story-section::before,.gift-section::before,.rsvp-section::before,.secondary-verse::before{top:18px;right:-35px;transform:rotate(5deg)}
+.couple-section::after,.event-section::after,.gallery-section::after,.story-section::after,.gift-section::after,.rsvp-section::after,.secondary-verse::after{bottom:24px;left:-42px;transform:rotate(185deg)}
+.gift-section::before,.gift-section::after{opacity:.22;filter:brightness(1.35)}
+html[data-theme="sky"] .couple-section::before,html[data-theme="sky"] .gallery-section::before,html[data-theme="sky"] .rsvp-section::before{opacity:.50}
+
+.cover-photo{animation:coverKenBurns 16s ease-in-out infinite alternate}
+.hero-slide.active{animation:heroKenBurns 8s ease-out both}
+.photo-reveal{opacity:0;filter:blur(7px);transition:opacity .9s ease,transform 1.05s cubic-bezier(.22,1,.36,1),filter .9s ease;transition-delay:var(--photo-delay,0ms);will-change:transform,opacity}
+.photo-reveal.visible{opacity:1;filter:none;transform:none}
+.person-photo.photo-curtain{position:relative;overflow:hidden;clip-path:inset(0 49% 0 49%);transform:translateY(26px) scale(.96);transition:clip-path 1.15s cubic-bezier(.77,0,.18,1),opacity .8s ease,transform 1s ease,filter .8s ease;transition-delay:var(--photo-delay,0ms)}
+.person-photo.photo-curtain.visible{clip-path:inset(0);transform:none}
+.person-photo.photo-curtain::after{content:"";position:absolute;inset:-20%;z-index:2;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.50) 49%,transparent 63%);transform:translateX(-120%) rotate(8deg);pointer-events:none}
+.person-photo.photo-curtain.visible::after{animation:photoShine 1.25s .7s ease both}
+.story-photo-button.photo-from-left{transform:translateX(-42px) scale(.97)}
+.story-photo-button.photo-from-right{transform:translateX(42px) scale(.97)}
+.story-photo-button.photo-reveal.visible{transform:none}
+.story-photo-button.photo-reveal img{transition:transform 1.8s cubic-bezier(.22,1,.36,1)}
+.story-photo-button.photo-reveal.visible img{transform:scale(1.035)}
+.gallery-item.photo-pop{transform:translateY(34px) scale(.88) rotate(var(--photo-tilt,0deg))}
+.gallery-item.photo-pop.visible{transform:none}
+.gallery-item.photo-pop.visible img{animation:gallerySettle 1.7s cubic-bezier(.22,1,.36,1) both}
+.gallery-item.photo-pop:nth-child(3n+2).visible img{animation-delay:.1s}
+.card-rise{transform:translateY(32px) scale(.97)}
+.card-rise.visible{transform:none}
+.gallery-item:active img,.story-photo-button:active img{transform:scale(1.08)}
+
+@keyframes coverKenBurns{from{transform:scale(1.02);background-position:48% 50%}to{transform:scale(1.10);background-position:54% 46%}}
+@keyframes heroKenBurns{from{transform:scale(1.02);background-position:48% 50%}to{transform:scale(1.10);background-position:53% 47%}}
+@keyframes photoShine{0%{transform:translateX(-125%) rotate(8deg)}100%{transform:translateX(125%) rotate(8deg)}}
+@keyframes gallerySettle{0%{transform:scale(1.12)}100%{transform:scale(1)}}
+
+@media(max-width:480px){
+  .couple-section::before,.event-section::before,.gallery-section::before,.story-section::before,.gift-section::before,.rsvp-section::before,.secondary-verse::before,
+  .couple-section::after,.event-section::after,.gallery-section::after,.story-section::after,.gift-section::after,.rsvp-section::after,.secondary-verse::after{width:118px;height:165px;opacity:.31}
+  html[data-theme="sky"] .couple-section::before,html[data-theme="sky"] .gallery-section::before,html[data-theme="sky"] .rsvp-section::before{opacity:.44}
+}
+@media(prefers-reduced-motion:reduce){
+  .cover-photo,.hero-slide.active,.gallery-item.photo-pop.visible img{animation:none!important}
+  .photo-reveal,.person-photo.photo-curtain{opacity:1!important;filter:none!important;transform:none!important;clip-path:none!important;transition:none!important}
+}
