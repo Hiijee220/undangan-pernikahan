@@ -19,7 +19,7 @@ const fieldGroups=[
   ["Hadiah & Rekening",[["giftLabel","Tulisan Wedding Gift"],["giftTitle","Judul hadiah"],["giftText","Pesan hadiah","textarea"],["showAccountText","Tombol lihat rekening"],["hideAccountText","Tombol sembunyikan rekening"],["bankName","Nama bank"],["accountNumber","Nomor rekening"],["accountPrefix","Awalan pemilik (a.n.)"],["accountHolder","Nama pemilik rekening"],["copyAccountText","Tulisan salin rekening"]]],
   ["Konfirmasi Hadiah",[["giftConfirmationText","Tulisan tombol konfirmasi"],["giftWhatsappNumber","Nomor WhatsApp (awali 62)"],["giftWhatsappMessage","Pesan WhatsApp hadiah","textarea"]]],
   ["Ucapan & RSVP",[["rsvpLabel","Tulisan Ucapan & RSVP"],["rsvpTitle","Judul RSVP"],["rsvpText","Penjelasan RSVP","textarea"],["rsvpButtonText","Tulisan tombol kirim"]]],
-  ["Musik",[["musicTitle","Judul musik"],["musicUrl","Link MP3, OGG, YouTube, atau youtu.be","url"]]],
+  ["Musik",[["musicTitle","Judul musik"],["musicUrl","Link MP3, OGG, YouTube, atau Google Drive","url"]]],
   ["Penutup & Sosial Media",[["closingLabel","Tulisan penutup"],["footerText","Ucapan terima kasih","textarea"],["closingCredit","Tulisan kecil paling bawah"],["whatsappUrl","Link WhatsApp","url"],["instagramUrl","Link Instagram","url"]]],
   ["Menu & Hitung Mundur",[["navHome","Menu Home"],["navCouple","Menu Kami"],["navEvent","Menu Acara"],["navGallery","Menu Galeri"],["navGift","Menu Hadiah"],["countdownDay","Label hari"],["countdownHour","Label jam"],["countdownMinute","Label menit"],["countdownSecond","Label detik"]]]
 ];
