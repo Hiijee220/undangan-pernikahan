@@ -69,7 +69,13 @@ async function hydrateImages(){
 }
 function startHero(images){clearInterval(heroTimer);if(!images.length)return;const a=$("#heroSlideA"),b=$("#heroSlideB");let index=0,front=a,back=b;setBackground("#heroSlideA",images[0]);a.classList.add("active");b.classList.remove("active");if(images.length<2)return;heroTimer=setInterval(()=>{index=(index+1)%images.length;setBackground(`#${back.id}`,images[index]);back.classList.add("active");front.classList.remove("active");[front,back]=[back,front]},5000)}
 
-function observeReveals(){if(!("IntersectionObserver"in window)){document.querySelectorAll(".reveal").forEach(el=>el.classList.add("visible"));return}if(!observeReveals.observer)observeReveals.observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observeReveals.observer.unobserve(entry.target)}}),{threshold:.12});document.querySelectorAll(".reveal:not(.visible)").forEach(el=>observeReveals.observer.observe(el))}
+function preparePhotoEffects(){
+  document.querySelectorAll(".person-photo").forEach((el,index)=>{el.classList.add("photo-reveal","photo-curtain");el.style.setProperty("--photo-delay",`${index*120}ms`)});
+  document.querySelectorAll(".story-photo-button").forEach((el,index)=>{el.classList.add("photo-reveal",index%2?"photo-from-right":"photo-from-left");el.style.setProperty("--photo-delay",`${Math.min(index,5)*90}ms`)});
+  document.querySelectorAll(".gallery-item").forEach((el,index)=>{el.classList.add("photo-reveal","photo-pop");el.style.setProperty("--photo-delay",`${(index%8)*65}ms`);el.style.setProperty("--photo-tilt",index%2?"1.7deg":"-1.7deg")});
+  document.querySelectorAll(".event-card,.date-badge").forEach((el,index)=>{el.classList.add("photo-reveal","card-rise");el.style.setProperty("--photo-delay",`${index*80}ms`)});
+}
+function observeReveals(){preparePhotoEffects();const selector=".reveal,.photo-reveal";if(!("IntersectionObserver"in window)){document.querySelectorAll(selector).forEach(el=>el.classList.add("visible"));return}if(!observeReveals.observer)observeReveals.observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observeReveals.observer.unobserve(entry.target)}}),{threshold:.1,rootMargin:"0px 0px -4%"});document.querySelectorAll(`${selector}:not(.visible)`).forEach(el=>observeReveals.observer.observe(el))}
 function showToast(message){const toast=$("#toast");toast.textContent=message;toast.classList.add("show");clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>toast.classList.remove("show"),2600)}
 async function copyText(text){try{await navigator.clipboard.writeText(text);showToast("Berhasil disalin")}catch{const area=document.createElement("textarea");area.value=text;document.body.append(area);area.select();document.execCommand("copy");area.remove();showToast("Berhasil disalin")}}
 
