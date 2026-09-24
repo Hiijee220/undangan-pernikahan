@@ -81,12 +81,18 @@ async function migrateLegacy(saved){
 }
 
 function renderFields(){$("#fields").innerHTML=fieldGroups.map(([title,fields])=>`<section class="field-group"><h3>${esc(title)}</h3><div class="field-group-grid">${fields.map(([key,label,type])=>`<label class="field ${type==="textarea"?"field-wide":""}"><span>${esc(label)}</span>${type==="textarea"?`<textarea name="${key}">${esc(data[key])}</textarea>`:`<input name="${key}" type="${type||"text"}" value="${esc(data[key])}">`}</label>`).join("")}</div></section>`).join("")}
-async function imageUrl(id){if(!id)return"";try{const snapshot=await getDoc(doc(db,"invitation",id));return snapshot.exists()?snapshot.data().dataUrl||"":""}catch{return""}}
-async function render(){renderFields();$("#theme").value=data.theme||"sky";document.documentElement.dataset.theme=data.theme||"sky";$("#imageSlots").innerHTML=imageSlots.map(([key,label])=>`<label class="upload-card"><span>${esc(label)}</span><input type="file" data-image-slot="${key}" accept="image/jpeg,image/png,image/webp,image/heic,image/heif"><img class="single-preview" data-preview="${key}" alt="Pratinjau ${esc(label)}" hidden></label>`).join("");
-  await Promise.all(imageSlots.map(async([key])=>{const url=await imageUrl(data[key]);const preview=document.querySelector(`[data-preview="${key}"]`);preview.hidden=!url;if(url)preview.src=url}));
-  document.querySelectorAll("[data-image-slot]").forEach(input=>input.onchange=event=>uploadSingle(event.target));await renderCollection("openingIds","#openingThumbs");await renderCollection("galleryIds","#galleryThumbs");
+const wait=milliseconds=>new Promise(resolve=>setTimeout(resolve,milliseconds));
+async function imageUrl(id){if(!id)return"";let lastError;for(let attempt=0;attempt<3;attempt++){try{const snapshot=await getDoc(doc(db,"invitation",id));return snapshot.exists()?snapshot.data().dataUrl||"":""}catch(error){lastError=error;if(attempt<2)await wait(300*(attempt+1))}}console.warn(`Pratinjau ${id} gagal dimuat.`,lastError);return""}
+async function render(){renderFields();$("#theme").value=data.theme||"sky";document.documentElement.dataset.theme=data.theme||"sky";$("#imageSlots").innerHTML=imageSlots.map(([key,label])=>`<label class="upload-card"><span>${esc(label)}</span><input type="file" data-image-slot="${key}" accept="image/jpeg,image/png,image/webp,image/heic,image/heif"><img class="single-preview" data-preview="${key}" alt="Pratinjau ${esc(label)}" loading="lazy" decoding="async" hidden></label>`).join("");
+  document.querySelectorAll("[data-image-slot]").forEach(input=>input.onchange=event=>uploadSingle(event.target));
+  setStatus("Memuat kembali semua foto tersimpan...");
+  let failed=0;
+  for(const[key]of imageSlots){const url=await imageUrl(data[key]),preview=document.querySelector(`[data-preview="${key}"]`);if(url){preview.src=url;preview.hidden=false}else if(data[key])failed++}
+  failed+=await renderCollection("openingIds","#openingThumbs");
+  failed+=await renderCollection("galleryIds","#galleryThumbs");
+  setStatus(failed?`${failed} pratinjau belum termuat. Muat ulang halaman untuk mencoba lagi.`:"Semua foto dan fitur berhasil dimuat kembali.",!!failed);
 }
-async function renderCollection(key,selector){const ids=Array.isArray(data[key])?data[key]:[],urls=await Promise.all(ids.map(imageUrl));$(selector).innerHTML=urls.map((url,index)=>`<div>${url?`<img src="${url}" alt="Foto">`:""}<button type="button" data-remove="${key}:${index}">Hapus</button></div>`).join("");document.querySelectorAll(`[data-remove^="${key}:"]`).forEach(button=>button.onclick=()=>removeCollectionImage(key,Number(button.dataset.remove.split(":")[1])))}
+async function renderCollection(key,selector){const ids=Array.isArray(data[key])?data[key]:[],items=[];let failed=0;for(let index=0;index<ids.length;index++){const url=await imageUrl(ids[index]);if(!url)failed++;items.push(`<div>${url?`<img src="${url}" alt="Foto" loading="lazy" decoding="async">`:`<span>Foto tersimpan<br>pratinjau belum termuat</span>`}<button type="button" data-remove="${key}:${index}">Hapus</button></div>`)}$(selector).innerHTML=items.join("");document.querySelectorAll(`[data-remove^="${key}:"]`).forEach(button=>button.onclick=()=>removeCollectionImage(key,Number(button.dataset.remove.split(":")[1])));return failed}
 async function removeCollectionImage(key,index){const ids=Array.isArray(data[key])?data[key]:[],id=ids[index];try{if(id)await deleteDoc(doc(db,"invitation",id));ids.splice(index,1);data[key]=ids;await setDoc(doc(db,"invitation","content"),data,{merge:true});await renderCollection(key,key==="openingIds"?"#openingThumbs":"#galleryThumbs");setStatus("Foto berhasil dihapus.")}catch(error){setStatus(error.message,true)}}
 
 const MAX_INPUT_SIZE=10*1024*1024;
